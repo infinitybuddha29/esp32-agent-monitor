@@ -21,8 +21,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 EXCEPTIONS: This license covers original code and documentation, not third-party
-material. The entire firmware/PixelOfficeDemo/ directory and its derived tests
-in pixel-office-demo/test/ are governed by the upstream PolyForm Noncommercial
-1.0.0 license in firmware/PixelOfficeDemo/LICENSE.upstream. Font software and
-derived bitmap glyphs are subject to tools/fonts/LICENSE_DEJAVU.
+material. Font software and derived bitmap glyphs are subject to
+tools/fonts/LICENSE_DEJAVU.
 See THIRD_PARTY.md for provenance and scope.

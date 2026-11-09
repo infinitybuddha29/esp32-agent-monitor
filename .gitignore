@@ -17,4 +17,6 @@ __pycache__/
 *.hex
 *.o
 *.a
-pixel-office-demo/framebuffer.png
+pixel-office-demo/
+firmware/PixelOfficeDemo/
+docs/images/pixel-office.png

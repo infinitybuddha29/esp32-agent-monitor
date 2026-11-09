@@ -1,17 +1,15 @@
 # ESP32 Agent Monitor
 
-TFT-экран для Codex и OpenCode. Два режима:
-- **Монитор** — реальные статусы сессий с Mac по Wi-Fi.
-- **Пиксельный офис** — автономное демо с шестью персонажами, без подключения к агентам.
-
-![Пиксельный офис — framebuffer ESP32 320×240](docs/images/pixel-office.png)
+TFT-экран, который показывает реальные статусы Codex и OpenCode:
+названия чатов, кто работает, кто ждёт ответа и сколько длится задача.
+ESP32 получает данные с Mac по Wi-Fi через локальный Node.js-мост.
 
 ## 1. Что понадобится
 
 - ESP32-S3 и SPI TFT **ST7789 240×320**.
 - Провода и USB-кабель с передачей данных.
 - [Arduino CLI](https://arduino.github.io/arduino-cli/installation/).
-- Для монитора: Mac, Node.js 20+, Codex CLI и/или OpenCode **v2** с запущенным shared service.
+- Mac, Node.js 20+, Codex CLI и/или OpenCode **v2** с запущенным shared service.
 
 ## 2. Подключить экран
 
@@ -43,20 +41,7 @@ arduino-cli board list
 Последняя команда покажет порт платы. Дальше замените `<PORT>` на свой:
 например, `/dev/cu.usbserial-110`, `/dev/ttyUSB0` или `COM3`.
 
-## 4. Выбрать режим и прошить
-
-### Пиксельный офис — самый быстрый запуск
-
-```sh
-arduino-cli compile --fqbn esp32:esp32:esp32s3:UploadSpeed=460800 firmware/PixelOfficeDemo
-arduino-cli upload --fqbn esp32:esp32:esp32s3:UploadSpeed=460800 -p <PORT> firmware/PixelOfficeDemo
-```
-
-Подождите 8–12 секунд: персонажи начнут ходить и садиться за столы.
-Wi-Fi и компьютер после прошивки не нужны, достаточно USB-питания.
-[Настройка демо и снимок экрана](pixel-office-demo/README.md).
-
-### Монитор реальных агентов
+## 4. Запустить мост на Mac
 
 Mac и ESP32 должны быть в одной локальной Wi-Fi-сети.
 
@@ -68,7 +53,9 @@ npm start
 
 `npm install` не нужен. Мост использует встроенные модули Node.js.
 
-**В другом терминале** подготовьте конфиг:
+## 5. Настроить Wi-Fi и прошить ESP32
+
+В другом терминале подготовьте конфиг:
 
 ```sh
 cp firmware/AgentMonitor/config.example.h firmware/AgentMonitor/config.h
@@ -94,12 +81,11 @@ arduino-cli upload --fqbn esp32:esp32:esp32s3:UploadSpeed=460800 -p <PORT> firmw
 
 На экране появятся названия чатов, статусы и длительность работы.
 Мост должен оставаться запущенным. [Настройки моста](docs/BRIDGE.md).
-Для переключения между режимами просто загрузите другой скетч — проводка одна.
+После прошивки USB нужен только для питания, данные приходят по Wi-Fi.
 
 ## Использовано
 
 Arduino/C++, Adafruit GFX + ST7789, ArduinoJson 7, Node.js.
-Офис адаптирован из [underactive/pixel-agents-esp32](https://github.com/underactive/pixel-agents-esp32).
-Монитор — MIT; офис — PolyForm Noncommercial. [Авторство и лицензии](THIRD_PARTY.md).
+Код — MIT. [Библиотеки, шрифт и лицензии](THIRD_PARTY.md).
 
 [Korolev Dev в Telegram](https://t.me/korolevdeveloper)
